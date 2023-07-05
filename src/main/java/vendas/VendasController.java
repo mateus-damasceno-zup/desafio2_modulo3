@@ -1,5 +1,8 @@
 package vendas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VendasController {
     BDVendas bdVendas = new BDVendas();
 
@@ -12,7 +15,8 @@ public class VendasController {
     }
 
     public void listaDeVendas() {
-        bdVendas.listaDeVendas();
+        System.out.println(bdVendas.listaDeVendas());
+
 
     }
 
@@ -24,11 +28,13 @@ public class VendasController {
     }
 
     public void listaClientes() {
-        bdVendas.listaDeClientes();
+        System.out.println(bdVendas.listaDeClientes());
+
     }
 
     public void listaDeVendedores() {
-        bdVendas.listaDeVendedores();
+        System.out.println(bdVendas.listaDeVendedores());
+
     }
 
     public void cadastrarVendedor(Vendedor vendedor) {
@@ -58,6 +64,29 @@ public class VendasController {
         }
         throw new IllegalArgumentException("Cliente nao encontrado");
 
+
+    }
+    public List<Vendas> buscaVendaCliente(String cpfCliente) {
+        List<Vendas> vendas = new ArrayList<>();
+        for (Vendas v: bdVendas.listaDeVendas()) {
+            if ((v.getCliente().getCpf()).equalsIgnoreCase(cpfCliente)){
+                vendas.add(v);
+
+            }
+        }
+       return vendas;
+
+    }
+
+    public List<Vendas> buscaVendaVendedor(String emailVendedor) {
+        List<Vendas> vendas = new ArrayList<>();
+        for (Vendas v: bdVendas.listaDeVendas()) {
+            if ((v.getVendedor().getEmail().equalsIgnoreCase(emailVendedor))){
+                vendas.add(v);
+
+            }
+        }
+        return vendas;
 
     }
 
@@ -94,7 +123,7 @@ public class VendasController {
             }
 
         }
-        throw new IllegalArgumentException("necessario um email valido");
+        throw new IllegalArgumentException("necessario um email valido ou um novo email");
 
     }
 

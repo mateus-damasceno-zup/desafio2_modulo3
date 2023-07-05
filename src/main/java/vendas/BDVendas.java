@@ -1,8 +1,6 @@
 package vendas;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BDVendas {
@@ -72,15 +70,13 @@ public class BDVendas {
     }
 
     public List<Vendas> listaDeVendas(){
-        List<Vendas> listaDeVendas = new ArrayList<>(this.vendas);
-        System.out.println(listaDeVendas);
-        return listaDeVendas;
+
+        return new ArrayList<>(this.vendas);
     }
 
     public List<Cliente> listaDeClientes(){
-        List<Cliente> listaDeClientes = new ArrayList<>(this.listaCliente);
-        System.out.println(listaDeClientes);
-        return listaDeClientes;
+
+        return new ArrayList<>(this.listaCliente);
     }
     public boolean listaDeClienteJaExistente(String listaDeCliente){
         for (Cliente cliente : this.listaCliente) {
@@ -91,9 +87,8 @@ public class BDVendas {
         return false;
     }
     public List<Vendedor> listaDeVendedores(){
-        List<Vendedor> listaDeVendedor = new ArrayList<>(this.listaVendedor);
-        System.out.println(listaDeVendedor);
-        return  listaDeVendedor;
+
+        return new ArrayList<>(this.listaVendedor);
     }
     public boolean listaDeVendedoresJaExistente(String listaDeVendedores){
         for (Vendedor vendedor : this.listaVendedor) {
@@ -116,7 +111,6 @@ public class BDVendas {
                 String cpf = c.getCpf();
                 String nome = c.getNome();
                 String email= c.getEmail();
-                //como pegar o cliente e ...
                 Cliente cliente = new Cliente();
                 cliente.setCpf(cpf);
                 cliente.setNome(nome);
@@ -144,4 +138,24 @@ public class BDVendas {
         }
         return null;
     }
+
+ 
+    public Vendas retornarVendas(String cpfCliente){
+        for (Vendas vendas : this.vendas) {
+            if(cpfCliente.equalsIgnoreCase(vendas.getCliente().getCpf())){
+                Cliente cliente = vendas.getCliente();
+                Vendedor vendedor = vendas.getVendedor();
+                double valor= vendas.getValor();
+                String data = vendas.getDataRegistro();
+                Vendas vendas1 = new Vendas();
+                vendas1.setCliente(cliente);
+                vendas1.setVendedor(vendedor);
+                vendas1.setValor(valor);
+                vendas1.setDataRegistro(data);
+                return vendas1;
+            }
+        }
+        return null;
+    }
+
 }

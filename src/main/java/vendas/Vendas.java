@@ -16,7 +16,9 @@ public class Vendas {
         this.valor = valor;
         this.dataRegistro = dataRegistro;
     }
+    public Vendas(){
 
+    }
     public Cliente getCliente() {
         return cliente;
     }

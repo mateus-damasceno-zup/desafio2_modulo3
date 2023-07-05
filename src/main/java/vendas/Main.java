@@ -23,6 +23,8 @@ public class Main {
                         "\n5- cadastrar clientes" +
                         "\n6- listar Vendedores" +
                         "\n7- cadastrar Vendedores" +
+                        "\n8- lista vendas do cliente"+
+                        "\n9- lista vendas por vendedor"+
                         "\n-1 para sair");
                 opcao = sc.nextInt();
                 sc.nextLine();
@@ -53,6 +55,7 @@ public class Main {
                     vendasController.excluirListaDeVendas(idVenda);
                 } else if (opcao == 4) {
                     System.out.println("========lista de clientes=========");
+
                     vendasController.listaClientes();
                 }else if (opcao == 5){
                     System.out.println("=======cadastro de cliente=======");
@@ -82,6 +85,16 @@ public class Main {
                     String emailVendedorValidado= vendasController.validaEmailVendedor(emailVendedor);
                     vendedor = new Vendedor(nomeVendedor, cpfVendedorValidado, emailVendedorValidado);
                     vendasController.cadastrarVendedor(vendedor);
+                }else if(opcao==8){
+                    System.out.println("====busca venda por cpf======");
+                    System.out.println("digite o cpf do cliente");
+                    String cpfCliente = sc.nextLine();
+                    System.out.println(vendasController.buscaVendaCliente(cpfCliente));
+                }else if(opcao==9) {
+                    System.out.println("====busca vendas por email do vendedor======");
+                    System.out.println("digite o email do vendedor");
+                    String emailVendedor = sc.nextLine();
+                    System.out.println(vendasController.buscaVendaVendedor(emailVendedor));
                 }
             }
     }
