@@ -8,27 +8,32 @@ public class Main {
     public static void main(String[] args) {
 
 
-            VendasController vendasController = new VendasController();
-            Cliente cliente;
-            Vendedor vendedor;
+        VendasController vendasController = new VendasController();
+        Cliente cliente;
+        Vendedor vendedor;
+        Scanner sc = new Scanner(System.in);
+        int opcao;
+        do {
+            System.out.println("digite uma das opçoes abaixo");
+            System.out.println("" +
+                    "1- adicionar uma venda ao banco" +
+                    "\n2- listar vendas" +
+                    "\n3- excluir venda" +
+                    "\n4- listar clientes" +
+                    "\n5- cadastrar clientes" +
+                    "\n6- listar Vendedores" +
+                    "\n7- cadastrar Vendedores" +
+                    "\n8- lista vendas do cliente" +
+                    "\n9- lista vendas por vendedor" +
+                    "\n-1 para sair");
 
-            int opcao = 0;
-            while (opcao != -1) {
-                Scanner sc = new Scanner(System.in);
-                System.out.println("digite uma das opçoes abaixo" +
-                        "\n1- adicionar uma venda ao banco" +
-                        "\n2- listar vendas" +
-                        "\n3- excluir venda" +
-                        "\n4- listar clientes" +
-                        "\n5- cadastrar clientes" +
-                        "\n6- listar Vendedores" +
-                        "\n7- cadastrar Vendedores" +
-                        "\n8- lista vendas do cliente"+
-                        "\n9- lista vendas por vendedor"+
-                        "\n-1 para sair");
-                opcao = sc.nextInt();
-                sc.nextLine();
-                if (opcao == 1) {
+
+
+
+            opcao = sc.nextInt();
+            switch (opcao) {
+                case 1 -> {
+                    sc.nextLine();
                     System.out.println("=======Cadastro de vendas===============");
                     System.out.println("digite o cpf do cliente");
                     String cpfCliente = sc.nextLine();
@@ -43,21 +48,23 @@ public class Main {
                     String data = sc.nextLine();
                     Vendas vendas = new Vendas(clienteEncontrado, vendedorEncontrado, valor, data);
                     vendasController.cadastrarVendas(vendas);
-
-
-                } else if (opcao == 2) {
+                }
+                case 2 -> {
                     System.out.println("====HISTORICO DE VENDAS===========");
                     vendasController.listaDeVendas();
-                } else if (opcao == 3) {
+                }
+                case 3 -> {
                     System.out.println("========Excluir uma venda=========");
                     System.out.println("digite o id da lista para excluir");
                     int idVenda = sc.nextInt();
                     vendasController.excluirListaDeVendas(idVenda);
-                } else if (opcao == 4) {
+                }
+                case 4 -> {
                     System.out.println("========lista de clientes=========");
-
                     vendasController.listaClientes();
-                }else if (opcao == 5){
+                }
+                case 5 -> {
+                    sc.nextLine();
                     System.out.println("=======cadastro de cliente=======");
                     System.out.println("digite o nome do cliente");
                     String nomeCliente = sc.nextLine();
@@ -69,11 +76,13 @@ public class Main {
                     String emailClienteVerificado = vendasController.validaEmailCliente(emailCliente);
                     cliente = new Cliente(nomeCliente, cpfClienteVerificado, emailClienteVerificado);
                     vendasController.cadastrarCliente(cliente);
-
-                } else if (opcao ==6) {
+                }
+                case 6 -> {
                     System.out.println("=======lista de vendedores======");
                     vendasController.listaDeVendedores();
-                } else if (opcao==7) {
+                }
+                case 7 -> {
+                    sc.nextLine();
                     System.out.println("=======cadastro de vendedores=======");
                     System.out.println("digite o nome do vendedor");
                     String nomeVendedor = sc.nextLine();
@@ -82,21 +91,27 @@ public class Main {
                     String cpfVendedorValidado = vendasController.validaCPFVendedor(cpfVendedor);
                     System.out.println("digite o email do vendedor");
                     String emailVendedor = sc.nextLine();
-                    String emailVendedorValidado= vendasController.validaEmailVendedor(emailVendedor);
+                    String emailVendedorValidado = vendasController.validaEmailVendedor(emailVendedor);
                     vendedor = new Vendedor(nomeVendedor, cpfVendedorValidado, emailVendedorValidado);
                     vendasController.cadastrarVendedor(vendedor);
-                }else if(opcao==8){
+                }
+                case 8 -> {
+                    sc.nextLine();
                     System.out.println("====busca venda por cpf======");
                     System.out.println("digite o cpf do cliente");
                     String cpfCliente = sc.nextLine();
                     System.out.println(vendasController.buscaVendaCliente(cpfCliente));
-                }else if(opcao==9) {
+                }
+                case 9 -> {
+                    sc.nextLine();
                     System.out.println("====busca vendas por email do vendedor======");
                     System.out.println("digite o email do vendedor");
                     String emailVendedor = sc.nextLine();
                     System.out.println(vendasController.buscaVendaVendedor(emailVendedor));
                 }
+                default -> System.out.println("digite um valor valido");
             }
+        } while (opcao != -1);
     }
 }
 
