@@ -1,10 +1,18 @@
-package vendas;
+package vendas.controller;
+
+import vendas.bd.BDCliente;
+import vendas.bd.BDVendas;
+import vendas.Cliente;
+import vendas.Vendas;
+import vendas.Vendedor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VendasController {
-    BDVendas bdVendas = new BDVendas();
+    BDCliente bdCliente = new BDCliente();
+    List<Cliente> listaDeClientes = bdCliente.listaDeClientes();
+    BDVendas bdVendas = new BDVendas(listaDeClientes);
 
 
     public void cadastrarVendas(Vendas vendas) {
@@ -20,17 +28,7 @@ public class VendasController {
 
     }
 
-    public void cadastrarCliente(Cliente cliente) {
-        if (bdVendas.listaDeClienteJaExistente(String.valueOf(cliente))) {
-            throw new IllegalArgumentException("Cliente ja Existente");
-        }
-        bdVendas.adicionarCliente(cliente);
-    }
 
-    public void listaClientes() {
-        System.out.println(bdVendas.listaDeClientes());
-
-    }
 
     public void listaDeVendedores() {
         System.out.println(bdVendas.listaDeVendedores());
@@ -56,16 +54,7 @@ public class VendasController {
 
     }
 
-    public Cliente buscaCliente(String cpfCliente) {
 
-        if (bdVendas.listaDeClienteJaExistente(cpfCliente)) {
-            return bdVendas.retornarCliente(cpfCliente);
-
-        }
-        throw new IllegalArgumentException("Cliente nao encontrado");
-
-
-    }
     public List<Vendas> buscaVendaCliente(String cpfCliente) {
         List<Vendas> vendas = new ArrayList<>();
         for (Vendas v: bdVendas.listaDeVendas()) {
@@ -100,7 +89,7 @@ public class VendasController {
     }
 
     public String validaCPFCliente(String cpf){
-        if(bdVendas.listaDeClienteJaExistente(cpf)) {
+        if(bdCliente.listaDeClienteJaExistente(cpf)) {
             throw new IllegalArgumentException("cliente ja existente");
         }
         return cpf;
@@ -115,7 +104,7 @@ public class VendasController {
 
     public String validaEmailCliente(String emailCliente) {
         if (emailCliente.contains("@")) {
-            for (Cliente c : bdVendas.listaDeClientes()) {
+            for (Cliente c : bdCliente.listaDeClientes()) {
                 if (!c.getEmail().equalsIgnoreCase(emailCliente)) {
                     return emailCliente;
                 }

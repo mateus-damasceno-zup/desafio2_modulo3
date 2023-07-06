@@ -1,4 +1,8 @@
-package vendas;
+package vendas.bd;
+
+import vendas.Cliente;
+import vendas.Vendas;
+import vendas.Vendedor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,26 +11,15 @@ public class BDVendas {
 
 
     private List<Vendas> vendas = new ArrayList<>();
-    private List<Cliente> listaCliente = new ArrayList<>();
+
 
     private List<Vendedor> listaVendedor = new ArrayList<>();
 
-    public BDVendas(){
-        iniciarBancoVendas();
+    public BDVendas(List<Cliente> clientes){
+        iniciarBancoVendas(clientes);
     }
 
-    public void iniciarBancoVendas(){
-        Cliente cliente = new Cliente("mateus","911","mateus@mateus.com");
-        Cliente cliente1 = new Cliente("karla","026","karla@gmail.com");
-        Cliente cliente2 = new Cliente("kiwi","320","cutucadinha@dr.com");
-        Cliente cliente3 = new Cliente("jujuba","566","potota@email.com");
-        Cliente cliente4 = new Cliente("astolfo","171","astolfo@email.com");
-        adicionarCliente(cliente);
-        adicionarCliente(cliente1);
-        adicionarCliente(cliente2);
-        adicionarCliente(cliente3);
-        adicionarCliente(cliente4);
-
+    public void iniciarBancoVendas(List<Cliente> clientes){
         Vendedor vendedor = new Vendedor("gilberto","191","gilberto@email.com");
         Vendedor vendedor1 = new Vendedor("robalo","147","robalo@vendas.com");
         Vendedor vendedor2 = new Vendedor("Dulcato","910","dulcato@gema.com");
@@ -38,11 +31,11 @@ public class BDVendas {
         adicionarVendedor(vendedor3);
         adicionarVendedor(vendedor4);
 
-        adicionarVenda(new Vendas(cliente,vendedor,400.00,"03/07/2023"));
-        adicionarVenda(new Vendas(cliente1,vendedor1,300.00,"21/07/2023"));
-        adicionarVenda(new Vendas(cliente2,vendedor2,2222.22,"11/06/2023"));
-        adicionarVenda(new Vendas(cliente3,vendedor3,53.23,"12/06/2023"));
-        adicionarVenda(new Vendas(cliente4,vendedor4,2342.43,"05/12/2013"));
+        adicionarVenda(new Vendas(clientes.get(0),vendedor,400.00,"03/07/2023"));
+        adicionarVenda(new Vendas(clientes.get(1),vendedor1,300.00,"21/07/2023"));
+        adicionarVenda(new Vendas(clientes.get(2),vendedor2,2222.22,"11/06/2023"));
+        adicionarVenda(new Vendas(clientes.get(3),vendedor3,53.23,"12/06/2023"));
+        adicionarVenda(new Vendas(clientes.get(4),vendedor4,2342.43,"05/12/2013"));
 
 
     }
@@ -55,14 +48,11 @@ public class BDVendas {
         this.listaVendedor.add(listaDeVendedor);
         System.out.println("Vendedor adicionado");
     }
-    public void adicionarCliente(Cliente listaDeClientes){
-        this.listaCliente.add(listaDeClientes);
-        System.out.println("Cliente adicionado");
-    }
+
 
     public boolean listaDeVendaJaExistente(String listaDeVenda){
-        for (Vendas vendas : this.vendas) {
-            if(listaDeVenda.contains(List.of(vendas.getId()).toString())){
+        for (Vendas venda : this.vendas) {
+            if(listaDeVenda.contains(List.of(venda.getId()).toString())){
                 return true;
             }
         }
@@ -74,18 +64,8 @@ public class BDVendas {
         return new ArrayList<>(this.vendas);
     }
 
-    public List<Cliente> listaDeClientes(){
 
-        return new ArrayList<>(this.listaCliente);
-    }
-    public boolean listaDeClienteJaExistente(String listaDeCliente){
-        for (Cliente cliente : this.listaCliente) {
-            if(listaDeCliente.contains(cliente.getCpf())){
-                return true;
-            }
-        }
-        return false;
-    }
+
     public List<Vendedor> listaDeVendedores(){
 
         return new ArrayList<>(this.listaVendedor);
@@ -102,23 +82,6 @@ public class BDVendas {
     public void excluirVenda(Vendas vendaId){
         this.vendas.remove(vendaId);
         System.out.println("lista removida");
-    }
-
-    public Cliente retornarCliente(String listaDeClientes){
-
-        for (Cliente c : this.listaCliente) {
-            if(listaDeClientes.equalsIgnoreCase(c.getCpf())){
-                String cpf = c.getCpf();
-                String nome = c.getNome();
-                String email= c.getEmail();
-                Cliente cliente = new Cliente();
-                cliente.setCpf(cpf);
-                cliente.setNome(nome);
-                cliente.setEmail(email);
-                return cliente;
-            }
-        }
-        return null;
     }
 
 
@@ -141,12 +104,12 @@ public class BDVendas {
 
  
     public Vendas retornarVendas(String cpfCliente){
-        for (Vendas vendas : this.vendas) {
-            if(cpfCliente.equalsIgnoreCase(vendas.getCliente().getCpf())){
-                Cliente cliente = vendas.getCliente();
-                Vendedor vendedor = vendas.getVendedor();
-                double valor= vendas.getValor();
-                String data = vendas.getDataRegistro();
+        for (Vendas venda : this.vendas) {
+            if(cpfCliente.equalsIgnoreCase(venda.getCliente().getCpf())){
+                Cliente cliente = venda.getCliente();
+                Vendedor vendedor = venda.getVendedor();
+                double valor= venda.getValor();
+                String data = venda.getDataRegistro();
                 Vendas vendas1 = new Vendas();
                 vendas1.setCliente(cliente);
                 vendas1.setVendedor(vendedor);

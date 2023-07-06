@@ -1,31 +1,33 @@
 package vendas;
 
-import javax.sound.midi.Soundbank;
-import java.sql.SQLOutput;
+
+import vendas.controller.ClienteController;
+import vendas.controller.VendasController;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-
+        ClienteController clienteController = new ClienteController();
         VendasController vendasController = new VendasController();
         Cliente cliente;
         Vendedor vendedor;
         Scanner sc = new Scanner(System.in);
         int opcao;
         do {
-            System.out.println("digite uma das opçoes abaixo");
-            System.out.println("" +
-                    "1- adicionar uma venda ao banco" +
-                    "\n2- listar vendas" +
-                    "\n3- excluir venda" +
-                    "\n4- listar clientes" +
-                    "\n5- cadastrar clientes" +
-                    "\n6- listar Vendedores" +
-                    "\n7- cadastrar Vendedores" +
-                    "\n8- lista vendas do cliente" +
-                    "\n9- lista vendas por vendedor" +
-                    "\n-1 para sair");
+            System.out.println("""
+                    digite uma das opçoes abaixo
+                    1- adicionar uma venda ao banco
+                    2- listar vendas
+                    3- excluir venda
+                    4- listar clientes
+                    5- cadastrar clientes
+                    6- listar Vendedores
+                    7- cadastrar Vendedores
+                    8- lista vendas do cliente
+                    9- lista vendas por vendedor
+                    -1 para sair""");
 
 
 
@@ -37,7 +39,7 @@ public class Main {
                     System.out.println("=======Cadastro de vendas===============");
                     System.out.println("digite o cpf do cliente");
                     String cpfCliente = sc.nextLine();
-                    Cliente clienteEncontrado = vendasController.buscaCliente(cpfCliente);
+                    Cliente clienteEncontrado = clienteController.buscaCliente(cpfCliente);
                     System.out.println("digite o cpf do vendedor");
                     String cpfVendedor = sc.nextLine();
                     Vendedor vendedorEncontrado = vendasController.buscaVendedor(cpfVendedor);
@@ -61,7 +63,7 @@ public class Main {
                 }
                 case 4 -> {
                     System.out.println("========lista de clientes=========");
-                    vendasController.listaClientes();
+                    clienteController.listaClientes();
                 }
                 case 5 -> {
                     sc.nextLine();
@@ -75,7 +77,7 @@ public class Main {
                     String emailCliente = sc.nextLine();
                     String emailClienteVerificado = vendasController.validaEmailCliente(emailCliente);
                     cliente = new Cliente(nomeCliente, cpfClienteVerificado, emailClienteVerificado);
-                    vendasController.cadastrarCliente(cliente);
+                    clienteController.cadastrarCliente(cliente);
                 }
                 case 6 -> {
                     System.out.println("=======lista de vendedores======");
