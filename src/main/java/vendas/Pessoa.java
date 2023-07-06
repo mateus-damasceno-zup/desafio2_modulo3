@@ -1,5 +1,7 @@
 package vendas;
 
+import java.util.Objects;
+
 public abstract class Pessoa {
 
     private String nome;
@@ -38,6 +40,18 @@ public abstract class Pessoa {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pessoa pessoa)) return false;
+        return Objects.equals(nome, pessoa.nome) && Objects.equals(cpf, pessoa.cpf) && Objects.equals(email, pessoa.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, cpf, email);
     }
 
     @Override
