@@ -2,7 +2,7 @@ package vendas.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import vendas.Cliente;
+import vendas.Model.Cliente;
 
 class ClienteControllerTest {
 

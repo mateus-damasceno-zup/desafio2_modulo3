@@ -2,9 +2,10 @@ package vendas.controller;
 
 import vendas.bd.BDCliente;
 import vendas.bd.BDVendas;
-import vendas.Cliente;
-import vendas.Vendas;
-import vendas.Vendedor;
+import vendas.Model.Cliente;
+import vendas.Model.Vendas;
+import vendas.Model.Vendedor;
+import vendas.bd.BDVendedor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,10 @@ import java.util.List;
 public class VendasController {
     BDCliente bdCliente = new BDCliente();
     List<Cliente> listaDeClientes = bdCliente.listaDeClientes();
-    BDVendas bdVendas = new BDVendas(listaDeClientes);
+    BDVendedor bdVendedor = new BDVendedor();
+    List<Vendedor> listaDeVendedores =bdVendedor.listaDeVendedores();
+
+    BDVendas bdVendas = new BDVendas(listaDeClientes,listaDeVendedores);
 
 
     public void cadastrarVendas(Vendas vendas) {
@@ -26,20 +30,6 @@ public class VendasController {
         System.out.println(bdVendas.listaDeVendas());
 
 
-    }
-
-
-
-    public void listaDeVendedores() {
-        System.out.println(bdVendas.listaDeVendedores());
-
-    }
-
-    public void cadastrarVendedor(Vendedor vendedor) {
-        if (bdVendas.listaDeVendedoresJaExistente(String.valueOf(vendedor))) {
-            throw new IllegalArgumentException("Vendedor ja Existente");
-        }
-        bdVendas.adicionarVendedor(vendedor);
     }
 
     public void excluirListaDeVendas(int vendaAExcluir) {
@@ -79,14 +69,7 @@ public class VendasController {
 
     }
 
-    public Vendedor buscaVendedor(String cpfVendedor) {
-        if (bdVendas.listaDeVendedoresJaExistente(cpfVendedor)) {
-            return bdVendas.retornarVendedor(cpfVendedor);
 
-        }
-        throw new IllegalArgumentException("vendedor nao encontrado");
-
-    }
 
     public String validaCPFCliente(String cpf){
         if(bdCliente.listaDeClienteJaExistente(cpf)) {
@@ -94,40 +77,9 @@ public class VendasController {
         }
         return cpf;
     }
-    public String validaCPFVendedor(String cpf){
-        if(bdVendas.listaDeVendedoresJaExistente(cpf)) {
-            throw new IllegalArgumentException("vendedor ja existente");
-        }
-        return cpf;
-    }
 
 
-    public String validaEmailCliente(String emailCliente) {
-        if (emailCliente.contains("@")) {
-            for (Cliente c : bdCliente.listaDeClientes()) {
-                if (!c.getEmail().equalsIgnoreCase(emailCliente)) {
-                    return emailCliente;
-                }
 
-            }
-
-        }
-        throw new IllegalArgumentException("necessario um email valido ou um novo email");
-
-    }
-
-    public String validaEmailVendedor(String emailVendedor) {
-        if (emailVendedor.contains("@")) {
-            for (Vendedor v : bdVendas.listaDeVendedores()) {
-                if (!v.getEmail().equalsIgnoreCase(emailVendedor)) {
-                    return emailVendedor;
-                }
-
-            }
-
-        }
-        throw new IllegalArgumentException("necessario um email valido ou nao repetido");
-    }
 
 
 }

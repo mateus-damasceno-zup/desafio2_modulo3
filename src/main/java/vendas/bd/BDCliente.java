@@ -1,8 +1,6 @@
 package vendas.bd;
 
-import vendas.Cliente;
-
-
+import vendas.Model.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,6 @@ public class BDCliente {
         adicionarCliente(cliente4);
 
     }
-
     public void adicionarCliente(Cliente listaDeClientes){
         this.listaCliente.add(listaDeClientes);
         System.out.println("Cliente adicionado");
@@ -63,7 +60,4 @@ public class BDCliente {
         }
         return null;
     }
-
-
-
 }

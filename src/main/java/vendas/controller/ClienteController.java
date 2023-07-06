@@ -1,7 +1,7 @@
 package vendas.controller;
 
 import vendas.bd.BDCliente;
-import vendas.Cliente;
+import vendas.Model.Cliente;
 
 public class ClienteController {
     BDCliente bdCliente = new BDCliente();
@@ -26,6 +26,19 @@ public class ClienteController {
         }
         throw new IllegalArgumentException("Cliente nao encontrado");
 
+
+    }
+    public String validaEmailCliente(String emailCliente) {
+        if (emailCliente.contains("@")) {
+            for (Cliente c : bdCliente.listaDeClientes()) {
+                if (!c.getEmail().equalsIgnoreCase(emailCliente)) {
+                    return emailCliente;
+                }
+
+            }
+
+        }
+        throw new IllegalArgumentException("necessario um email valido ou um novo email");
 
     }
 }

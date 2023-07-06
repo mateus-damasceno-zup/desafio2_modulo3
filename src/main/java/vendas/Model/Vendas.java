@@ -1,4 +1,4 @@
-package vendas;
+package vendas.Model;
 
 public class Vendas {
 

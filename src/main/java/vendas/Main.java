@@ -1,8 +1,12 @@
 package vendas;
 
 
+import vendas.Model.Cliente;
+import vendas.Model.Vendas;
+import vendas.Model.Vendedor;
 import vendas.controller.ClienteController;
 import vendas.controller.VendasController;
+import vendas.controller.VendedorController;
 
 import java.util.Scanner;
 
@@ -11,6 +15,7 @@ public class Main {
 
         ClienteController clienteController = new ClienteController();
         VendasController vendasController = new VendasController();
+        VendedorController vendedorController = new VendedorController();
         Cliente cliente;
         Vendedor vendedor;
         Scanner sc = new Scanner(System.in);
@@ -42,7 +47,7 @@ public class Main {
                     Cliente clienteEncontrado = clienteController.buscaCliente(cpfCliente);
                     System.out.println("digite o cpf do vendedor");
                     String cpfVendedor = sc.nextLine();
-                    Vendedor vendedorEncontrado = vendasController.buscaVendedor(cpfVendedor);
+                    Vendedor vendedorEncontrado = vendedorController.buscaVendedor(cpfVendedor);
                     System.out.println("digite o valor da compra");
                     double valor = sc.nextDouble();
                     sc.nextLine();
@@ -75,13 +80,13 @@ public class Main {
                     String cpfClienteVerificado = vendasController.validaCPFCliente(cpfCliente);
                     System.out.println("digite o email do cliente");
                     String emailCliente = sc.nextLine();
-                    String emailClienteVerificado = vendasController.validaEmailCliente(emailCliente);
+                    String emailClienteVerificado = clienteController.validaEmailCliente(emailCliente);
                     cliente = new Cliente(nomeCliente, cpfClienteVerificado, emailClienteVerificado);
                     clienteController.cadastrarCliente(cliente);
                 }
                 case 6 -> {
                     System.out.println("=======lista de vendedores======");
-                    vendasController.listaDeVendedores();
+                    vendedorController.listaDeVendedores();
                 }
                 case 7 -> {
                     sc.nextLine();
@@ -90,12 +95,12 @@ public class Main {
                     String nomeVendedor = sc.nextLine();
                     System.out.println("digite o cpf do vendedor");
                     String cpfVendedor = sc.nextLine();
-                    String cpfVendedorValidado = vendasController.validaCPFVendedor(cpfVendedor);
+                    String cpfVendedorValidado = vendedorController.validaCPFVendedor(cpfVendedor);
                     System.out.println("digite o email do vendedor");
                     String emailVendedor = sc.nextLine();
-                    String emailVendedorValidado = vendasController.validaEmailVendedor(emailVendedor);
+                    String emailVendedorValidado = vendedorController.validaEmailVendedor(emailVendedor);
                     vendedor = new Vendedor(nomeVendedor, cpfVendedorValidado, emailVendedorValidado);
-                    vendasController.cadastrarVendedor(vendedor);
+                    vendedorController.cadastrarVendedor(vendedor);
                 }
                 case 8 -> {
                     sc.nextLine();

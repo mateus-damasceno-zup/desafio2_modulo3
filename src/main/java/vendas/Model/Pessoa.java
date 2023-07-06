@@ -1,4 +1,4 @@
-package vendas;
+package vendas.Model;
 
 import java.util.Objects;
 
